@@ -1,5 +1,7 @@
 package com.candyhouse.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -15,16 +17,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
-	
+public class CartItem {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String name;
-	
 	@JsonIgnore
 	@ManyToOne
-	private DessertShop dessertshop;
+	private Cart cart;
 	
+	@ManyToOne
+	private Dessert dessert;
+	
+	private int quantity;
+	
+	private List<String> ingredients;
+	
+	private Long totalPrice;
 }

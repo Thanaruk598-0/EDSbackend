@@ -1,7 +1,10 @@
 package com.candyhouse.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,7 +14,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -51,5 +53,13 @@ public class DessertShop {
 	@ElementCollection
 	@Column(length = 1000)
 	private List<String> images;
+	
+	private LocalDateTime registrationDate;
+	
+	private boolean open;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "dessertshop",cascade = CascadeType.ALL)
+	private List<Dessert> desserts = new ArrayList<>();
 	
 }
