@@ -37,7 +37,7 @@ public class DessertShop {
 	
 	private String description;
 	
-	private String cuisineType;
+	private String dessertType;
 	
 	@OneToOne
 	private Address address;
