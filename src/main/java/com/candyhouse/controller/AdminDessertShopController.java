@@ -21,7 +21,7 @@ import com.candyhouse.service.DessertShopService;
 import com.candyhouse.service.UserService;
 
 @RestController
-@RequestMapping("/api/admin/dessertShop")
+@RequestMapping("/api/admin/dessertshops")
 public class AdminDessertShopController {
 
 	@Autowired
@@ -41,7 +41,7 @@ public class AdminDessertShopController {
 		DessertShop dessertShop = dessertShopService.createDessertShop(req, user);
 		
 		return new ResponseEntity<>(dessertShop, HttpStatus.CREATED);
-			}
+	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<DessertShop> updateDessertShop(
@@ -55,11 +55,10 @@ public class AdminDessertShopController {
 		DessertShop dessertShop = dessertShopService.updateDessertShop(id, req);
 		
 		return new ResponseEntity<>(dessertShop, HttpStatus.CREATED);
-			}
+	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<MessageResponse> deleteDessertShop(
-			@RequestBody CreateDessertShopRequest req,
 			@RequestHeader("Authorization") String jwt,
 			@PathVariable Long id
 			) throws Exception{
@@ -73,11 +72,10 @@ public class AdminDessertShopController {
 		res.setMessage("DessertShop delete Successfully");
 		
 		return new ResponseEntity<>(res, HttpStatus.CREATED);
-			}
-	
+	}
+
 	@PutMapping("/{id}/status")
 	public ResponseEntity<DessertShop> updateDessertShopStatus(
-			@RequestBody CreateDessertShopRequest req,
 			@RequestHeader("Authorization") String jwt,
 			@PathVariable Long id
 			) throws Exception{
@@ -87,11 +85,10 @@ public class AdminDessertShopController {
 		DessertShop dessertShop = dessertShopService.updateDessertShopStatus(id);
 		
 		return new ResponseEntity<>(dessertShop, HttpStatus.OK);
-			}
+	}
 	
 	@GetMapping("/user")
 	public ResponseEntity<DessertShop> findDessertShopByUserId(
-			@RequestBody CreateDessertShopRequest req,
 			@RequestHeader("Authorization") String jwt
 			) throws Exception{
 		
@@ -100,6 +97,6 @@ public class AdminDessertShopController {
 		DessertShop dessertShop = dessertShopService.getDessertShopByUserId(user.getId());
 		
 		return new ResponseEntity<>(dessertShop, HttpStatus.OK);
-			}
+	}
 	
 }

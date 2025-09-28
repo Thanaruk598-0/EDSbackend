@@ -22,6 +22,7 @@ public class DessertShopServiceImp implements DessertShopService{
 	@Autowired
 	private DessertShopRepository dessertShopRepository;
 	
+	@Autowired
 	private AddressRepository addressRepository;
 	
 	@Autowired
@@ -37,7 +38,9 @@ public class DessertShopServiceImp implements DessertShopService{
 		dessertShop.setContactInformation(req.getContactInformation());
 		dessertShop.setDescription(req.getDescription());
 		dessertShop.setName(req.getName());
+		dessertShop.setDessertType(req.getDessertType());
 		dessertShop.setOpeningHours(req.getOpeningHour());
+		dessertShop.setImages(req.getImages());
 		dessertShop.setRegistrationDate(LocalDateTime.now());
 		dessertShop.setOwner(user);
 		
@@ -115,14 +118,22 @@ public class DessertShopServiceImp implements DessertShopService{
 		dto.setTitle(dessertShop.getName());
 		dto.setId(dessertId);
 		
-		if(user.getFavorites().contains(dto)) {
-			user.getFavorites().remove(dto);
+		boolean isFavorited = false;
+		List<DessertShopDto> favorites = user.getFavorites();
+		for(DessertShopDto favorite : favorites) {
+			if(favorite.getId().equals(dessertId)) {
+				isFavorited = true;
+				break;
+			}
 		}
 		
-		else user.getFavorites().add(dto);
+		if (isFavorited) {
+			favorites.removeIf(favorite -> favorite.getId().equals(dessertId));
+		} else {
+			favorites.add(dto);
+		}
 		
 		userRepository.save(user);
-		
 		return dto;
 	}
 
