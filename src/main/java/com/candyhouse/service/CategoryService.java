@@ -6,7 +6,7 @@ import com.candyhouse.model.Category;
 
 public interface CategoryService {
 	
-	public Category createCategory(String name, Long userId);
+	public Category createCategory(String name, Long userId) throws Exception;
 	
 	public List<Category> findCategoryByDessertShopId(Long id) throws Exception;
 	

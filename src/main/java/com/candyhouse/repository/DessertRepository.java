@@ -10,9 +10,9 @@ import com.candyhouse.model.Dessert;
 
 public interface DessertRepository extends JpaRepository<Dessert, Long>{
 
-	List<Dessert> findByDessertShopId(Long dessertId);
+	List<Dessert> findByDessertshop_Id(Long dessertShopId);
 	
-	@Query("SELECT f FROM Dessert f WHERE f.name LIKE %:keyword% OR f.dessertCategory.name LIKE %:keyword%")
+	@Query("SELECT d FROM Dessert d WHERE d.name LIKE %:keyword% OR d.DessertCategory.name LIKE %:keyword%")
 	List<Dessert> searchDessert(@Param("keyword") String keyword);
 	
 }

@@ -9,8 +9,8 @@ import com.candyhouse.model.DessertShop;
 
 public interface DessertShopRepository extends JpaRepository<DessertShop, Long>{
 	
-	@Query("SELECT r FROM DessertShop r WHERE lower(r.name) LIKE lower(concat('%',:query,'%')) "
-			+ "OR lower(r.dessertType) LIKE lower(concat('%',:query,'%'))")
+	@Query("SELECT d FROM DessertShop d WHERE lower(d.name) LIKE lower(concat('%',:query,'%')) "
+			+ "OR lower(d.dessertType) LIKE lower(concat('%',:query,'%'))")
 	List<DessertShop> findBySearchQuery(String query);
 	DessertShop findByOwnerId(Long userId);
 	

@@ -8,6 +8,6 @@ import com.candyhouse.model.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-	public List<Category> findByDessertShopId(Long id);
+	public List<Category> findByDessertshop_Id(Long id);
 	
 }

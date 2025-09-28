@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.candyhouse.model.Category;
 import com.candyhouse.model.Dessert;
@@ -12,6 +13,7 @@ import com.candyhouse.model.DessertShop;
 import com.candyhouse.repository.DessertRepository;
 import com.candyhouse.request.CreateDessertRequest;
 
+@Service
 public class DessertServiceImp implements DessertService {
 	
 	@Autowired
@@ -52,7 +54,7 @@ public class DessertServiceImp implements DessertService {
 			boolean isSeasonal,
 			String dessertCategory) {
 		
-		List<Dessert> desserts = dessertRepository.findByDessertShopId(dessertshopId);
+		List<Dessert> desserts = dessertRepository.findByDessertshop_Id(dessertshopId);
 		
 		if(isVegitarain) {
 			desserts = filterByVegetarian(desserts, isVegitarain);
