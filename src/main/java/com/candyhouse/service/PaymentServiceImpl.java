@@ -28,7 +28,7 @@ public class PaymentServiceImpl implements PaymentService{
 					.setCurrency("usd"))
 					.setUnitAmount((long)order.getTotalPrice()*100)
 					.setProductData(SeccionCreateParams.LineItem.PriceData.ProductData.builder()
-					.setName("//ใส่ชื่อร้าน")
+					.setName("sweetopia")
 					.build())
 				)
 				.build()
