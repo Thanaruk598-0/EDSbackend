@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.candyhouse.model.Cart;
 import com.candyhouse.model.CartItem;
+import com.candyhouse.model.User;
 import com.candyhouse.request.AddCartItemRequest;
 import com.candyhouse.request.UpdateCartItemRequest;
 import com.candyhouse.service.CartService;
+import com.candyhouse.service.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -24,6 +26,9 @@ public class CartController {
 
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@PutMapping("/cart/add")
 	public ResponseEntity<CartItem> addItemToCart(
@@ -61,8 +66,10 @@ public class CartController {
 	public ResponseEntity<Cart> clearCart(
 			
 			@RequestHeader("Authorization") String jwt ) throws Exception {
+		
+		User user = userService.findUserByJwtToken(jwt);
 				
-		Cart cart = cartService.clearCart(jwt);
+		Cart cart = cartService.clearCart(user.getId());
 		
 		return new ResponseEntity<>(cart, HttpStatus.OK);
 		
@@ -72,8 +79,10 @@ public class CartController {
 	public ResponseEntity<Cart> findUserCart(
 			
 			@RequestHeader("Authorization") String jwt ) throws Exception {
+		
+		User user = userService.findUserByJwtToken(jwt);
 				
-		Cart cart = cartService.findCartByUserId(jwt);
+		Cart cart = cartService.findCartByUserId(user.getId());
 		
 		return new ResponseEntity<>(cart, HttpStatus.OK);
 		
