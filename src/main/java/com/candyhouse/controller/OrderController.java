@@ -19,7 +19,6 @@ import com.candyhouse.model.User;
 import com.candyhouse.request.AddCartItemRequest;
 import com.candyhouse.request.OrderRequest;
 import com.candyhouse.service.OrderService;
-import com.candyhouse.service.PaymentService;
 import com.candyhouse.service.UserService;
 
 @RestController
@@ -29,9 +28,6 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@Autowired
-	private PaymentService paymentService;
-	 
 	@Autowired
 	private UserService userService;
 	
