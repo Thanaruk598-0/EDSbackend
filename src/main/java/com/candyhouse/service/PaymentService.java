@@ -1,11 +1,16 @@
 package com.candyhouse.service;
-import com.candyhouse.response.PaymentResponse;
-import service.Order;
-import service.PaymentResponse;
 
-@Data
+
+
+
+import com.candyhouse.model.Order;
+import com.candyhouse.response.PaymentResponse;
+import com.stripe.exception.StripeException;
+
+
+
 public interface PaymentService {
-	public PaymentResponse creatPatmentLink(Order order) throws StripeException;
+	public PaymentResponse createPaymentLink(Order order) throws StripeException;
 
 	
 	

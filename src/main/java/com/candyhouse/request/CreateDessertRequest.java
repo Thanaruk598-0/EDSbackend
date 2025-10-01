@@ -16,7 +16,7 @@ public class CreateDessertRequest {
 	private Category category;
 	private List<String> images;
 	private Long dessertshopId;
-	private boolean Vegitarain;
+	private boolean Vegetarian;
 	private boolean seasional;
 	private List<IngredientsItem> ingradients;
 	
