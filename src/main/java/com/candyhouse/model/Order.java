@@ -32,7 +32,7 @@ public class Order {
 	
 	@JsonIgnore
 	@ManyToOne
-	private DessertShop dessertShop;
+	private DessertShop dessertshop;
 	
 	private Long totalAmount;
 	

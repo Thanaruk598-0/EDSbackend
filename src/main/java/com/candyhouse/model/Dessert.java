@@ -42,9 +42,9 @@ public class Dessert {
 	private boolean available;
 	
 	@ManyToOne
-	private DessertShop dessertShop;
+	private DessertShop dessertshop;
 	
-	private boolean isVegetarian;
+	private boolean isVegatarian;
 	
 	private boolean isSeasonal;
 	

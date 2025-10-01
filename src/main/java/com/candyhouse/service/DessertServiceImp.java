@@ -1,6 +1,5 @@
 package com.candyhouse.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,15 +23,14 @@ public class DessertServiceImp implements DessertService {
 	public Dessert createDessert(CreateDessertRequest req, Category category, DessertShop dessertshop) {
 		Dessert dessert = new Dessert();
 		dessert.setDessertCategory(category);
-		dessert.setDessertShop(dessertshop);
+		dessert.setDessertshop(dessertshop);
 		dessert.setDescription(req.getDescription());
 		dessert.setImages(req.getImages());
 		dessert.setName(req.getName());
 		dessert.setPrice(req.getPrice());
 		dessert.setIngredient(req.getIngradients());
 		dessert.setSeasonal(req.isSeasional());
-		dessert.setCreationDate(new Date());
-		dessert.setVegetarian(req.isVegetarian());
+		dessert.setVegatarian(req.isVegitarain());
 		
 		Dessert savedDessert = dessertRepository.save(dessert);
 		dessertshop.getDesserts().add(savedDessert);
@@ -44,7 +42,7 @@ public class DessertServiceImp implements DessertService {
 	public void deleteDessert(Long dessertId) throws Exception {
 		
 		Dessert dessert = findDessertById(dessertId);
-		dessert.setDessertShop(null);
+		dessert.setDessertshop(null);
 		dessertRepository.save(dessert);
 		
 	}
@@ -56,7 +54,7 @@ public class DessertServiceImp implements DessertService {
 			boolean isSeasonal,
 			String dessertCategory) {
 		
-		List<Dessert> desserts = dessertRepository.findByDessertShop_Id(dessertshopId);
+		List<Dessert> desserts = dessertRepository.findByDessertshop_Id(dessertshopId);
 		
 		if(isVegitarain) {
 			desserts = filterByVegetarian(desserts, isVegitarain);
@@ -88,11 +86,11 @@ public class DessertServiceImp implements DessertService {
 	}
 
 	private List<Dessert> filterByNonveg(List<Dessert> desserts, boolean isNonveg) {
-		return desserts.stream().filter(dessert -> dessert.isVegetarian() == false).collect(Collectors.toList());
+		return desserts.stream().filter(dessert -> dessert.isVegatarian() == false).collect(Collectors.toList());
 	}
 
 	private List<Dessert> filterByVegetarian(List<Dessert> desserts, boolean isVegitarain) {
-		return desserts.stream().filter(dessert -> dessert.isVegetarian() == isVegitarain).collect(Collectors.toList());
+		return desserts.stream().filter(dessert -> dessert.isVegatarian() == isVegitarain).collect(Collectors.toList());
 	}
 
 	@Override

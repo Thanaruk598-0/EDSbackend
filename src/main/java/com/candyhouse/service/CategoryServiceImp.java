@@ -33,7 +33,7 @@ public class CategoryServiceImp implements CategoryService{
 	public List<Category> findCategoryByDessertShopId(Long id) throws Exception {
 		DessertShop dessertShop = dessertShopService.getDessertShopByUserId(id);
 		
-		return categoryRepository.findByDessertshop_Id(id);
+		return categoryRepository.findByDessertshop_Id(dessertShop.getId());
 	}
 
 	@Override

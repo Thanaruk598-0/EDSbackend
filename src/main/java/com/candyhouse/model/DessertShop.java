@@ -47,7 +47,7 @@ public class DessertShop {
 	
 	private String openingHours;
 	
-	@OneToMany(mappedBy = "dessertShop", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "dessertshop",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Order> orders = new ArrayList<>();
 	
 	@ElementCollection
@@ -59,7 +59,7 @@ public class DessertShop {
 	private boolean open;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "dessertShop",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "dessertshop",cascade = CascadeType.ALL)
 	private List<Dessert> desserts = new ArrayList<>();
 	
 }

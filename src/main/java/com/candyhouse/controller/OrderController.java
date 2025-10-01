@@ -7,15 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.candyhouse.model.CartItem;
 import com.candyhouse.model.Order;
 import com.candyhouse.model.User;
+import com.candyhouse.request.AddCartItemRequest;
 import com.candyhouse.request.OrderRequest;
-import com.candyhouse.response.PaymentResponse;
 import com.candyhouse.service.OrderService;
 import com.candyhouse.service.PaymentService;
 import com.candyhouse.service.UserService;
@@ -29,11 +31,12 @@ public class OrderController {
 	
 	@Autowired
 	private PaymentService paymentService;
+	 
 	@Autowired
 	private UserService userService;
 	
 	@PostMapping("/order")
-	public ResponseEntity<PaymentResponse> createOrder(
+	public ResponseEntity<Order> createOrder(
 			@RequestBody OrderRequest req,
 			@RequestHeader("Authorization") String jwt ) throws Exception {
 				
@@ -41,9 +44,7 @@ public class OrderController {
 		
 		Order order = orderService.createOrder(req, user);
 		
-		PaymentResponse res = paymentService.createPaymentLink(order);
-		
-		return new ResponseEntity<>(res, HttpStatus.OK);
+		return new ResponseEntity<>(order, HttpStatus.OK);
 		
 	}
 	

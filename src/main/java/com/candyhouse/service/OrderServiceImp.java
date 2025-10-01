@@ -62,7 +62,7 @@ public class OrderServiceImp implements OrderService {
 		createdOrder.setCreatedAt(new Date());
 		createdOrder.setOrderStatus("Pending");
 		createdOrder.setDeliveryAddress(savedAddress);
-		createdOrder.setDessertShop(dessertshop);
+		createdOrder.setDessertshop(dessertshop);
 		
 		Cart cart = cartService.findCartByUserId(user.getId());
 		
@@ -125,7 +125,7 @@ public class OrderServiceImp implements OrderService {
 
 	@Override
 	public List<Order> getDessertShopOrder(Long dessertshopId, String orderStatus) throws Exception {
-		List<Order> orders =  orderRepository.findByDessertShop_Id(dessertshopId);
+		List<Order> orders =  orderRepository.findByDessertShopId(dessertshopId);
 		
 		if(orderStatus != null) {
 			orders = orders.stream().filter(order -> 

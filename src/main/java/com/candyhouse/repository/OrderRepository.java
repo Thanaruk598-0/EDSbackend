@@ -10,6 +10,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
 	public List<Order> findByCustomerId(Long userId);
 	
-	public List<Order> findByDessertShop_Id(Long dessertShopId);
+	public List<Order> findByDessertShopId(Long dessertshopId);
 	
 }
