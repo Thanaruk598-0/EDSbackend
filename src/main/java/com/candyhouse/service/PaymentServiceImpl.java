@@ -1,46 +1,53 @@
-package service;
+package com.candyhouse.service;
 
-import com.candyhouse.service.Order;
-import com.candyhouse.service.PaymentResponse;
-import com.candyhouse.service.PaymentService;
-import com.candyhouse.strip.param.checkout.SessionCreateParams;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.candyhouse.model.Order;
+import com.candyhouse.response.PaymentResponse;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 
+
 @Service
-import jakarta.websocket.Session;
 public class PaymentServiceImpl implements PaymentService{
 	
-	@Value("${stripe.api.key}")
-	private String StripeSecretKey;
+	@Value("${stripe.secret.key}")
+	private String stripeSecretKey;
 
 	@Override
-	public PaymentResponse creatPatmentLink(Order order) {
+	public PaymentResponse createPaymentLink(Order order) throws StripeException {
 		
-		Stripe.apiKey=StripeSecretKey;
+		Stripe.apiKey = stripeSecretKey;
 		
-		SessionCreateParam params = SessionCreateParams.buider().addPaymentMethodType
-				(SessionCreateParams.
-				PaymentMethodType.CARD).setMode(SessionCreateParams.Mode.PAYMENT)
-				.setSuccessUrl("//ใส่localhost +order.getId()")
-				.setCancelUrl("//ใส่localhost +order.getId()")
+		SessionCreateParams params = SessionCreateParams.builder().addPaymentMethodType(
+				SessionCreateParams
+				.PaymentMethodType.CARD)
+				.setMode(SessionCreateParams.Mode.PAYMENT)
+				.setSuccessUrl("http://localhost:3000/payment/success" + order.getId())
+				.setCancelUrl("http://localhost:3000/payment/fail")
 				.addLineItem(SessionCreateParams.LineItem.builder()
-				.setQuantity(1L).setPrinceData(SessionCreateParams.LineItem.PrinceData.builder()
-					.setCurrency("usd"))
-					.setUnitAmount((long)order.getTotalPrice()*100)
-					.setProductData(SeccionCreateParams.LineItem.PriceData.ProductData.builder()
-					.setName("//ใส่ชื่อร้าน")
-					.build())
-				)
-				.build()
+						.setQuantity(1L).setPriceData(SessionCreateParams.LineItem.PriceData.builder()
+								.setCurrency("usd")
+								.setUnitAmount((long) order.getTotalPrice() * 100)
+								.setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder()
+								.setName("sweetopia")
+								.build())
+						.build()
+						)
+						.build()
 				)
 				.build();
 				
-				Session session = Session.create(params);
-				
-				PaymentResponse res = new PaymentResponse();
-				res.setPayment_url(session.getUrl());
-				
+		Session session = Session.create(params);
+		
+		PaymentResponse res = new PaymentResponse();
+		
+		res.setPayment_url(session.getUrl());
+		
 		return res;
 	}
-
+	
 }
